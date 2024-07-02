@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+
+        function fill_loginedUser(user) {
+
+            let id = user[0].id;
+
+            $("#userId").text(id);
+
+            $.getJSON('/getChatList', showChatList)
+
+        }
+
+        function get_loginedUser() {
+            $.getJSON("/getLoginUser", fill_loginedUser)
+        }
+
+
+        // 채팅방 리스트 받아서 보여주기
+        function showChatList(chatRooms) {
+            //console.log(chatRooms);
+
+            let userId = $("#userId").text();
+
+            chatRooms.forEach(chat => {
+
+                let users = chat.attendances
+
+                if (chat.isgroup == 0) {
+                    friend = users.replace(userId, "").replace(" ", "");
+
+                    //console.log("attendance 수정한 거 : " + friend);
+
+                    let lastmessage = chat.lastmessage
+
+
+                    temp = lastmessage.split('/')
+
+                    //console.log(lastmessage);
+
+                    if (temp[0] == 'static') lastmessage = "사진"
+
+                    let chatP = '<div class="chats" onclick="getChatRoom(this)"><div class="friends">' + friend + '</div><div class="lastchat">' + lastmessage + '</div><div class="chatId">' + chat.chat_id + '</div></div>'
+
+                    //console.log(chatP)
+
+                    $("#container").append(chatP);
+
+                } else {
+
+                    let lastmessage = chat.lastmessage
+
+                    temp = lastmessage.split('/')
+
+                    //console.log(lastmessage);
+
+                    if (temp[0] == 'static') lastmessage = "사진"
+
+                    let chatP = '<div class="chats" onclick="getChatRoom(this)"><div class="friends">' + chat.attendances + '</div><div class="lastchat">' + lastmessage + '</div><div class="chatId">' + chat.chat_id + '</div></div>'
+
+                    $("#container").append(chatP);
+                }
+
+
+            });
+
+        }
+
+        // 채팅방 클릭했을 때 현재 들어가려는 채팅방 정보 서버 dictionary에 저장해주는 함수
+        function getChatRoom(chatInfo) {
+
+            res = chatInfo.childNodes
+
+            console.log('chatId: ' + res[2].innerText)
+
+            let chatid = res[2].innerText
+
+            let data = {
+                "chatid": chatid
+            }
+
+            $.ajax({
+                url: "/updateNowChatRoomStatus",
+                type: "post",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                success: function (data, txtStatus, xhr) {
+
+                    window.location = '/chatroom';
+
+                },
+                error: function (event) {
+                    console.log("실패..");
+                }
+            })
+
+        }
+
+        $(document).ready(function () {
+            $("#container").empty();
+            get_loginedUser()
+
+        })
+    </script>
+
+    <style>
+        .chatId {
+            display: none;
+        }
+
+        #container {
+            padding: 10px;
+            height: 500px;
+            overflow: auto;
+            width: 300px;
+            border: 2px solid black;
+        }
+
+        .chats {
+            padding: 3px;
+            margin-bottom: 10px;
+        }
+
+        .friends {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+
+        .groupchat {
+            padding: 10px;
+            width: 300px;
+            text-align: center;
+            justify-content: center;
+        }
+
+        #btnGroupChat {
+            text-align: center;
+            font-size: 15px;
+            padding: 10px;
+            border: 2px solid black;
+            background-color: white;
+            margin-bottom: 15px;
+        }
+
+        #btnChatList {
+            text-align: center;
+            font-size: 15px;
+            padding: 10px;
+            border: 2px solid black;
+            background-color: white;
+        }
+
+        #userId {
+            display: none;
+        }
+
+        .lastchat {
+            font-size: 12px;
+        }
+
+        #btnBack {
+            position: absolute;
+            top: 25px;
+            left: 340px;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 15px;
+            padding: 10px;
+            border: 2px solid black;
+            background-color: white;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="groupchat" style="height: 50px;">
+            <h2>Chat List</h2>
+        </div>
+
+        <div id="container">
+
+            <!-- <p>
+            <div class="friends">안성수</div>
+            <div class="lastchat">안녕하세요?</div>
+            </p>
+
+            <p>양형주</p>
+            <p>이명근</p>
+            <p>박진영</p>
+            <p>최호성</p>
+            <p>손지원</p> -->
+        </div>
+
+    </div>
+
+    <a href="/friendlist"><button id="btnBack">친구목록 페이지</button></a>
+
+    <div id="userId"></div>
+
+</body>
+
+</html>

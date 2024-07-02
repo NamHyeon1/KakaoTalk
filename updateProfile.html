@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- <script src="static/addfriend.js"></script> -->
+    <title>Document</title>
+
+    <script>
+
+        $(document).ready(function () {
+            $('#btnUpdateProfile').click(function () {
+                let temp = $('#profileImage').val();
+                let statusmessage = $('#statusmessage').val();
+
+                let image = temp.split("\\")[2]
+                let imageLink = ""
+                if (image != undefined) imageLink = "static/" + image
+
+
+
+
+                // console.log(temp.split("\\"))
+
+                let data = {
+                    'imageLink': imageLink,
+                    'statusmessage': statusmessage
+                }
+
+
+                console.log(data)
+
+                $.ajax({
+                    url: "/updateProfile",
+                    type: "post",
+                    contentType: "application/json",
+                    data: JSON.stringify(data),
+                    success: function (data, txtStatus, xhr) {
+                        window.location = '/getProfilePage';
+                    },
+                    error: function (event) {
+                        alert("프로필 수정페이지 오류 발생이요");
+                    }
+                })
+
+            })
+        })
+
+    </script>
+
+    <style>
+        #container {
+            padding: 10px;
+            height: 300px;
+            overflow: auto;
+            width: 400px;
+            border: 2px solid black;
+        }
+
+        span {
+            font-size: 18px;
+        }
+
+        t input {
+            padding: 7px;
+            margin: 0 10px;
+        }
+
+        #btnUpdateProfile {
+            position: absolute;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 15px;
+            padding: 5px;
+            border: 2px solid black;
+            background-color: white;
+            top: 360px;
+            left: 310px;
+        }
+
+        #btnBack {
+            position: absolute;
+            top: 25px;
+            left: 340px;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 15px;
+            padding: 10px;
+            border: 2px solid black;
+            background-color: white;
+        }
+    </style>
+
+    <script>
+
+    </script>
+</head>
+
+<body>
+
+    <div>
+        <h1>프로필 수정하기</h1>
+        <div id="container">
+            <p>
+            <div style="margin-left: 10px;"><span>프로필 사진</span> : <input type="file" id="profileImage"
+                    accept="image/png, image/jpeg, image/jpg" />
+            </div>
+
+            <br>
+            <div style="margin-left: 10px;"><span>상태메세지</span> : <input type="text" id="statusmessage"></div>
+
+            <button id="btnUpdateProfile">완료</button>
+            </p>
+
+        </div>
+
+        <a href="/getProfilePage"><button id="btnBack">돌아가기</button></a>
+
+
+
+    </div>
+
+
+</body>
+
+</html>

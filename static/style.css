@@ -1,0 +1,189 @@
+body {
+    margin: 0px;
+}
+
+#container {
+    display: flex;
+}
+
+.flex_size_1 {
+    width: 500px;
+}
+
+hr {
+    border: 1px solid #c3d1e8;
+}
+
+.id_input {
+    display: flex;
+    text-align: center;
+    margin: 10px 5px;
+
+    height: 30px;
+}
+
+.textContainer {
+    border: 1px lightgray solid;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+
+
+.kakao_content {
+    overflow: auto;
+    background-color: #9bbbd4;
+    height: 550px;
+    padding: 15px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.kakao_content::-webkit-scrollbar {
+    width: 12px;
+}
+
+.kakao_content::-webkit-scrollbar-thumb {
+    background-color: #848484;
+    border-radius: 15px;
+    background-clip: padding-box;
+    border: 3px solid transparent;
+}
+
+.kakao_content::-webkit-scrollbar-track {
+    background-color: none;
+
+}
+
+.kakao_inputbox {
+    padding: 2px;
+    height: 150px;
+    text-align: right;
+}
+
+.sendBtn {
+    padding: 5px;
+    width: 15%;
+    background-color: #fef01b;
+    font-weight: 500;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    font-size: 1.1em;
+    font-family: 'Franklin Gothic Medium';
+}
+
+
+
+#imageSendContainer {
+    border: 1px lightgray solid;
+    border-radius: 5px;
+    position: absolute;
+    top: 590px;
+    left: 510px;
+    padding: 6px;
+    text-align: right;
+}
+
+#btnImageSend {
+    padding: 5px;
+    background-color: #fef01b;
+    font-weight: 500;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    font-size: 1.1em;
+    font-family: 'Franklin Gothic Medium';
+}
+
+textarea {
+    resize: none;
+    width: 98.5%;
+    height: 108px;
+    border: none;
+    font-family: 'Franklin Gothic Medium';
+}
+
+textarea:focus {
+    outline: none !important;
+    box-shadow: none !important;
+
+}
+
+
+#btn_id_enter {
+    background-color: #fef01b;
+    font-weight: 500;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+}
+
+pre {
+    margin: 0px;
+    font-weight: 500;
+    font-family: 'Franklin Gothic Medium';
+    text-wrap: unset;
+}
+
+.speech_bubble {
+    display: inline-block;
+    padding: 8px;
+    border-radius: 5px;
+    max-width: 65%;
+    font-weight: 500;
+    font-family: 'Franklin Gothic Medium';
+}
+
+.mine {
+    background-color: #fef01b;
+    margin-bottom: 5px;
+    text-align: left;
+
+}
+
+.yours {
+    background-color: #ffffff;
+    margin-bottom: 5px;
+}
+
+.mtime {
+    display: inline-block;
+    margin-right: 3px;
+    position: relative;
+    top: 6px;
+}
+
+.ytime {
+    display: inline-block;
+    position: relative;
+    top: 6px;
+    margin-left: 3px;
+}
+
+.mtexts {
+    /* display: inline-block; */
+    width: 100%;
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+.ytexts {
+    width: 100%;
+    margin-bottom: 20px;
+    display: inline-block;
+    /* text-align: left; */
+}
+
+
+
+.name {
+    margin-bottom: 5px;
+}
+
+#idContainer {
+    display: none;
+}
+
+
+.posup {
+    position: relative;
+    top: 0px;
+}

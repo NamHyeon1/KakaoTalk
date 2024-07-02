@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #container {
+            width: 300px;
+            height: 500px;
+            background-color: #92A0A6;
+            padding: 10px;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        a {
+            width: 10%;
+        }
+
+        .header {
+            display: flex;
+        }
+
+        .empty {
+            height: 300px;
+        }
+
+        p {
+            text-align: center;
+            color: whitesmoke;
+        }
+
+        #profileImg {
+            width: 70px;
+            height: 70px;
+            border-radius: 20px;
+
+        }
+
+        #id {
+            font-size: 20px;
+            margin-bottom: 0;
+        }
+
+        #statusmessage {
+            font-size: 13px;
+            font-weight: 300;
+        }
+
+        #loginUser {
+            display: none;
+        }
+
+        .visible {
+            visibility: hidden;
+        }
+    </style>
+
+    <script>
+        function fill_loginedUser(data) {
+
+            let user = data[0]
+
+            console.log(user)
+
+            let id = user.id
+            let imgLink = user.photo
+            let statusmessage = user.statusMessage
+
+            if (imgLink == null || imgLink == "") imgLink = '/static/baseprofile.png'
+            if (statusmessage == null) statusmessage = ''
+
+            $('#id').text(id)
+            $('#profileImg').attr("src", imgLink);
+            $('#statusmessage').text(statusmessage)
+
+            let loginUser = $("#loginUser").text()
+
+            if (loginUser != id) {
+                $("#update").addClass('visible')
+
+                $('.visible').parent().attr("href", "")
+            }
+
+
+        }
+
+        function getUser() {
+            $.getJSON("/getClickedUser", fill_loginedUser)
+        }
+
+
+        function fillId(user) {
+
+            let id = user[0].id
+
+            $("#loginUser").text(id)
+
+            getUser()
+        }
+
+        function get_loginedUser() {
+            $.getJSON("/getLoginUser", fillId)
+
+
+        }
+
+        $(document).ready(function () {
+
+            get_loginedUser()
+
+
+
+            /*
+            $('#close').click(function () {
+                window.location = '/friendlist';
+            })
+
+            $('#update').click(function () {
+                window.location = '/updateProfilePage';
+            })
+            */
+        })
+
+    </script>
+
+</head>
+
+<body>
+    <div id="container">
+
+        <!-- /friendlist -->
+        <!-- /updateProfilePage -->
+        <div class="header">
+            <a href="/friendlist"><img id="close" src="static/close.png" alt=""></a>
+            <div style="width:80%;"></div>
+            <a href="/updateProfilePage"><img id="update" src="static/settings.png" alt=""></a>
+        </div>
+        <div class="empty">
+
+        </div>
+        <div>
+            <div style="text-align:center">
+
+                <img id="profileImg" src="" alt="">
+
+            </div>
+            <p id="id"></p>
+            <p id="statusmessage"></p>
+        </div>
+
+    </div>
+
+    <div id="loginUser"></div>
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <style>
+        body {
+            margin-top: 50px;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        #loginContainer {
+            margin: auto;
+            height: 350px;
+            width: 250px;
+            border: 2px solid;
+            padding: 20px;
+
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .inputs {
+            width: 200px;
+            border: 2px solid;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        #loginBtn {
+            margin-top: 20px;
+            color: white;
+            background-color: black;
+            border: none;
+            width: 100px;
+            padding: 10px;
+            border: 2px solid black;
+        }
+
+        #registerBtn {
+            margin-top: 20px;
+            color: black;
+            background-color: lightgray;
+            border: none;
+            width: 100px;
+            padding: 10px;
+            border: 2px solid;
+        }
+
+        p {
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loginContainer">
+        <h1 style="text-align: center; margin-bottom: 50px">SKKU Talk</h1>
+
+        <input type="text" class="inputs" placeholder="id" id="id"><br>
+        <input type="text" class="inputs" placeholder="password" id="password"><br>
+        <input id="loginBtn" type="submit" value="Login"> <br>
+
+
+        <input id="registerBtn" type="button" value="register">
+
+        <script>
+
+
+
+            $(document).ready(function () {
+
+                /*
+                let options = {};
+                options.url = window.location.href.toString();
+                options.method = 'GET';
+                let xhr = $.ajax(options);
+                
+                xhr.always(function () {
+                    alert(xhr.getResponseHeader('id'));
+                });
+                */
+
+
+                $("#loginBtn").click(function (event) {
+                    var username = $('#id').val()
+                    var password = $('#password').val()
+
+                    var data = { "username": username, "password": password }
+
+                    $.ajax({
+                        url: "/token",
+                        type: "post",
+                        data: data,
+                        success: function (data, txtStatus, xhr) {
+
+                            window.location = '/friendlist';
+                        },
+                        error: function (event) {
+                            alert("아이디 및 비밀번호를 다시 확인해주세요");
+                        }
+                    })
+                })
+
+                $("#registerBtn").click(function (event) {
+                    window.location = '/registerpage'
+                })
+
+            })
+        </script>
+
+    </div>
+
+</body>
+
+</html>

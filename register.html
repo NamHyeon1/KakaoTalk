@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Document</title>
+
+    <style>
+        body {
+            margin-top: 50px;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        #loginContainer {
+            margin: auto;
+            height: 350px;
+            width: 250px;
+            border: 2px solid;
+            padding: 20px;
+
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .inputs {
+            width: 200px;
+            border: 2px solid;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        #registerBtn {
+            margin-top: 20px;
+            color: black;
+            background-color: lightgray;
+            border: none;
+            width: 100px;
+            padding: 10px;
+            border: 2px solid;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            $("#registerBtn").click(function () {
+                let id = $("#id").val();
+                let password = $("#password").val();
+
+                let data = {
+                    "username": id,
+                    "password": password
+                }
+
+                console.log(data);
+
+                $.ajax({
+                    url: "/register",
+                    type: "post",
+                    data: data,
+                    success: function (data, txtStatus, xhr) {
+                        alert("success!");
+                        window.location = '/login';
+                    },
+                    error: function (event) {
+                        alert("이미 존재하는 사용자입니다!");
+                    }
+                })
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <div id="loginContainer">
+        <h1 style="text-align: center; margin-bottom: 50px">Sign Up</h1>
+
+        <input type="text" class="inputs" placeholder="id" id="id"><br>
+        <input type="text" class="inputs" placeholder="password" id="password"><br>
+        <input id="registerBtn" type="button" value="register">
+
+    </div>
+</body>
+
+</html>
